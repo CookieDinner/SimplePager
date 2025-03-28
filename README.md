@@ -64,7 +64,7 @@ fun example(
 ): Flow<Result<List<Item>>> {
     return flow {
         emit(/* Specified page of your list */)
-    }
+    }.asResult()
 }
 ```
 
