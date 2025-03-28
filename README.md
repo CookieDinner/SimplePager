@@ -80,6 +80,12 @@ LazyColumn {
 }
 ```
 
+### 4. Begin paging by activating the Pager
+
+```kotlin
+pager.resetPager()
+```
+
 ## Preview Demo
 
 <img height="600px" src="/media/PagerDemo.gif">
