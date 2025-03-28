@@ -4,7 +4,7 @@
 [![](https://jitpack.io/v/CookieDinner/SimplePager.svg)](https://jitpack.io/#CookieDinner/SimplePager)
 [![Jetpack Compose](https://img.shields.io/badge/Built%20with-Jetpack%20Compose%20%E2%9D%A4%EF%B8%8F-2DA042)](https://developer.android.com/jetpack/compose)
 
-✨ A simple and concise implementation of the dynamic pager for Jetpack Compose with no strings attached ✨
+✨ A simple and concise implementation of a dynamic pager for Jetpack Compose with no strings attached ✨
 
 ## Gradle setup
 Latest release version: [![](https://jitpack.io/v/CookieDinner/SimplePager.svg)](https://jitpack.io/#CookieDinner/SimplePager)
