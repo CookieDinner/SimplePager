@@ -67,7 +67,7 @@ fun example(
 }
 ```
 
-### 3. Observe the paged list and use it in your LazyColumn/LazyRow using the provided items extension
+### 3. Observe the paged list and use it in your LazyColumn / LazyRow using the items extension provided by the library
 
 ```kotlin
 val list by viewModel.pagedList.collectAsStateWithLifecycle()
@@ -81,6 +81,6 @@ LazyColumn {
 
 ## Preview Demo
 
-
+<img height="600px" src="/media/PagerDemo.gif">
 
 ## Contributions are very much welcome and appreciated ❤️
