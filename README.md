@@ -1,5 +1,6 @@
 # Simple Pager
 [![Kotlin](https://img.shields.io/badge/kotlin-%237F52FF.svg?logo=kotlin&logoColor=white)](https://kotlinlang.org)
+[![CodeQL](https://github.com/CookieDinner/SimplePager/actions/workflows/codeql.yml/badge.svg)](https://github.com/CookieDinner/SimplePager/actions/workflows/codeql.yml)
 [![](https://jitpack.io/v/CookieDinner/SimplePager.svg)](https://jitpack.io/#CookieDinner/SimplePager)
 [![Jetpack Compose](https://img.shields.io/badge/Built%20with-Jetpack%20Compose%20%E2%9D%A4%EF%B8%8F-2DA042)](https://developer.android.com/jetpack/compose)
 
