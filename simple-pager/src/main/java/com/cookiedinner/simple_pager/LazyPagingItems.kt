@@ -1,20 +1,10 @@
 package com.cookiedinner.simple_pager
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkVertically
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 
 /**
  * Wrapper class for the paged items list
@@ -39,15 +29,6 @@ inline fun <T> LazyListScope.items(
             }
             if (item != null)
                 itemContent(item)
-        }
-        item {
-            AnimatedVisibility(
-                visible = pagingItems.loadState is LoadState.Loading,
-                enter = fadeIn(tween(500)) + expandVertically(tween(300)),
-                exit = fadeOut(tween(300)) + shrinkVertically(tween(500))
-            ) {
-                CircularProgressIndicator(modifier = Modifier.padding(vertical = 12.dp))
-            }
         }
     }
 }
