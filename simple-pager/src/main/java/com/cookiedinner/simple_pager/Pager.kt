@@ -28,11 +28,11 @@ class Pager<T>(
     private var pagerActive = true
     private var pagedItemsSize = 0
     private var nextPage = MutableStateFlow(config.firstPageIndex)
+    private var pagingJob: Job? = null
     private val _lazyPagingItems = MutableStateFlow<LazyPagingItems<T>>(
         LazyPagingItems { reachedIndex ->
-            if (pagerActive && reachedIndex >= pagedItemsSize - config.prefetchDistance) {
-                Log.d("Tests", "Trying to fetch next page with config: $config")
-                pageMore()
+            if (pagingJob?.isActive != true && pagerActive && reachedIndex >= pagedItemsSize - config.prefetchDistance) {
+                pagingJob = pageMore()
             }
         }
     )
@@ -77,35 +77,32 @@ class Pager<T>(
         return list
     }
 
-    private var pagingJob: Job? = null
-    private fun pageMore() {
-        if (pagingJob?.isActive != true) {
-            pagingJob = coroutineScope.launch(Dispatchers.IO) {
-                val oldItems = _lazyPagingItems.value.items ?: emptyList()
-                val newItems = if (config.onlyDistinctItems)
-                    getMoreItems().distinct().filter { !oldItems.contains(it) }
-                else
-                    getMoreItems()
-                if (newItems.isEmpty()) {
-                    if (config.deactivatePagerOnEndReached) {
-                        deactivatePager()
-                    }
-                    _lazyPagingItems.update {
-                       it.copy(
-                            items = oldItems,
-                            loadState = LoadState.Success
-                        )
-                    }
-                    return@launch
+    private fun pageMore(): Job {
+        return coroutineScope.launch(Dispatchers.IO) {
+            val oldItems = _lazyPagingItems.value.items ?: emptyList()
+            val newItems = if (config.onlyDistinctItems)
+                getMoreItems().distinct().filter { !oldItems.contains(it) }
+            else
+                getMoreItems()
+            if (newItems.isEmpty()) {
+                if (config.deactivatePagerOnEndReached) {
+                    deactivatePager()
                 }
-                val newList = oldItems + newItems
-                pagedItemsSize = newList.size
                 _lazyPagingItems.update {
-                    it.copy(
-                        items = newList,
+                   it.copy(
+                        items = oldItems,
                         loadState = LoadState.Success
                     )
                 }
+                return@launch
+            }
+            val newList = oldItems + newItems
+            pagedItemsSize = newList.size
+            _lazyPagingItems.update {
+                it.copy(
+                    items = newList,
+                    loadState = LoadState.Success
+                )
             }
         }
     }
