@@ -32,3 +32,18 @@ inline fun <T> LazyListScope.items(
         }
     }
 }
+
+inline fun <T> LazyListScope.itemsIndexed(
+    pagingItems: LazyPagingItems<T>,
+    crossinline itemContent: @Composable (LazyItemScope.(index: Int, item: T) -> Unit)
+) {
+    if (pagingItems.items != null) {
+        itemsIndexed(pagingItems.items) { index, item ->
+            LaunchedEffect(Unit) {
+                pagingItems.onIndexReached(index)
+            }
+            if (item != null)
+                itemContent(index, item)
+        }
+    }
+}
