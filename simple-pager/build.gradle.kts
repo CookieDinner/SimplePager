@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.cookiedinner.simple_pager"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 24
@@ -23,11 +23,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -54,14 +54,22 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 }
 
+tasks.register("androidReleaseSourcesJar", Jar::class) {
+    archiveClassifier.set("sources")
+    from(kotlin.sourceSets["main"].kotlin.srcDirs)
+}
+
 afterEvaluate {
     publishing {
         publications {
             register<MavenPublication>("release") {
-                from(components["release"])
                 groupId = "com.github.CookieDinner"
                 artifactId = "simple-pager"
-                version = "1.0.0"
+                version = "1.0.4"
+
+                from(components["release"])
+                artifact(tasks.getByName("androidReleaseSourcesJar"))
+
                 pom {
                     name = "Simple Pager"
                     description = "A simple and concise implementation of the dynamic pager for Jetpack Compose with no strings attached"
