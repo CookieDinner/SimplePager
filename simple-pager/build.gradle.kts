@@ -47,11 +47,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 }
 
-tasks.register("androidReleaseSourcesJar", Jar::class) {
-    archiveClassifier.set("sources")
-    from(kotlin.sourceSets["main"].kotlin.srcDirs)
-}
-
 afterEvaluate {
     publishing {
         publications {
@@ -61,7 +56,6 @@ afterEvaluate {
                 version = "1.0.5"
 
                 from(components["release"])
-                artifact(tasks.getByName("androidReleaseSourcesJar"))
 
                 pom {
                     name = "Simple Pager"
