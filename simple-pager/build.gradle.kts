@@ -32,6 +32,12 @@ android {
     buildFeatures {
         compose = true
     }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
 }
 
 dependencies {
@@ -47,34 +53,15 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 }
 
-afterEvaluate {
-    publishing {
-        publications {
-            register<MavenPublication>("release") {
-                groupId = "com.github.CookieDinner"
-                artifactId = "simple-pager"
-                version = "1.0.5"
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "com.github.CookieDinner"
+            artifactId = "simple-pager"
+            version = "1.0.5"
 
+            afterEvaluate {
                 from(components["release"])
-
-                pom {
-                    name = "Simple Pager"
-                    description = "A simple and concise implementation of the dynamic pager for Jetpack Compose with no strings attached"
-                    url = "https://github.com/CookieDinner/SimplePager"
-                    licenses {
-                        license {
-                            name = "The Apache License, Version 2.0"
-                            url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
-                        }
-                    }
-                    developers {
-                        developer {
-                            id = "dwedzikowski"
-                            name = "Damian Wędzikowski"
-                            email = "dwedzikowski@gmail.com"
-                        }
-                    }
-                }
             }
         }
     }
