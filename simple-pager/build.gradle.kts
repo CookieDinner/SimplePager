@@ -57,8 +57,8 @@ publishing {
     publications {
         register<MavenPublication>("release") {
             groupId = "com.github.CookieDinner"
-            artifactId = "simple-pager"
-            version = "1.0.5"
+            artifactId = "SimplePager"
+            version = "1.0.7"
 
             afterEvaluate {
                 from(components["release"])
