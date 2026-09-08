@@ -65,7 +65,7 @@ afterEvaluate {
             register<MavenPublication>("release") {
                 groupId = "com.github.CookieDinner"
                 artifactId = "simple-pager"
-                version = "1.0.4"
+                version = "1.0.5"
 
                 from(components["release"])
                 artifact(tasks.getByName("androidReleaseSourcesJar"))
